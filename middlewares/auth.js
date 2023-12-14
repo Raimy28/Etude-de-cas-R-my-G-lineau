@@ -1,17 +1,26 @@
 const UnauthorizedError = require("../errors/unauthorized");
 const jwt = require("jsonwebtoken");
 const config = require("../config");
+const User = require("../models/user.model");
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
   try {
     const token = req.headers["x-access-token"];
     if (!token) {
       throw "not token";
     }
+
     const decoded = jwt.verify(token, config.secretJwtToken);
-    req.user = decoded;
+    const user = await User.findById(decoded._id);
+
+    if (!user) {
+      throw "user not found";
+    }
+
+    req.user = user; // Ajout de toutes les informations de l'utilisateur à 'req'
     next();
-  } catch (message) {
-    next(new UnauthorizedError(message));
+  } catch (error) {
+    next(new UnauthorizedError(error.message));
   }
 };
+

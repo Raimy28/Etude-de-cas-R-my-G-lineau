@@ -3,6 +3,7 @@ const UnauthorizedError = require("../../errors/unauthorized");
 const jwt = require("jsonwebtoken");
 const config = require("../../config");
 const usersService = require("./users.service");
+const articlesService = require('../articles/articles.service');
 
 class UsersController {
   async getAll(req, res, next) {
@@ -73,6 +74,21 @@ class UsersController {
       next(err);
     }
   }
+  async getUserArticles(req, res, next) {
+    try {
+      const userId = req.params.userId;
+
+      // Utilisez la méthode du service pour récupérer les articles de l'utilisateur
+      const articles = await articlesService.getArticlesByUser(userId);
+
+      if (!articles) {
+        throw new NotFoundError('Aucun article trouvé pour cet utilisateur');
+      }
+
+      res.json(articles);
+    } catch (error) {
+      next(error);
+    }
 }
 
 module.exports = new UsersController();
