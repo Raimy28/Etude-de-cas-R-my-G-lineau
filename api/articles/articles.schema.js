@@ -1,3 +1,4 @@
+// api/articles/articles.schema.js
 const { Schema, model } = require("mongoose");
 
 const articleSchema = Schema({

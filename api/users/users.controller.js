@@ -1,3 +1,4 @@
+// api/users/users.controller.js
 const NotFoundError = require("../../errors/not-found");
 const UnauthorizedError = require("../../errors/unauthorized");
 const jwt = require("jsonwebtoken");
@@ -89,6 +90,6 @@ class UsersController {
     } catch (error) {
       next(error);
     }
+  }
 }
-
 module.exports = new UsersController();

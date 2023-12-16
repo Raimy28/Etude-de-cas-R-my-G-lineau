@@ -1,3 +1,4 @@
+// api/users/users.model.js
 const { Schema, model } = require("mongoose");
 const { isEmail } = require("validator");
 const bcrypt = require("bcrypt");

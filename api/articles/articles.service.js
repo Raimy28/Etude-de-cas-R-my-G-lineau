@@ -1,6 +1,6 @@
-const Article = require('../../models/articles.model');
-const User = require('../../models/users.model');
-
+// api/articles/articles.service.js
+const Article = require('./articles.model');
+const User = require('../users/users.model');
 class ArticlesService {
   getAll() {
     return Article.find();
@@ -35,6 +35,7 @@ class ArticlesService {
     } catch (error) {
       throw error;
     }
+  }
 }
 
 module.exports = new ArticlesService();
